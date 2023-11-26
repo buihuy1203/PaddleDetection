@@ -27,21 +27,21 @@ metric: COCO
 num_classes: 5
 
 TrainDataset:
-    name: COCODataSet
+  !COCODataSet
     image_dir: train
-    anno_path: train.json
-    dataset_dir: ./dataset/publaynet/
+    anno_path: train/train.json
+    dataset_dir: /content/TextDivideLabel/
     data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd']
 
 EvalDataset:
-    name: COCODataSet
-    image_dir: val
-    anno_path: val.json
-    dataset_dir: ./dataset/publaynet/
+  !COCODataSet
+    image_dir: valid
+    anno_path: valid/valid.json
+    dataset_dir: /content/TextDivideLabel/
 
 TestDataset:
   !ImageFolder
-    anno_path: ./dataset/publaynet/val.json
+    anno_path: /content/TextDivideLabel/valid/valid.json
 
 
 worker_num: 8
