@@ -11,7 +11,7 @@ find_unused_parameters: True
 use_ema: true
 cycle_epoch: 10
 snapshot_epoch: 1
-epoch: 100
+epoch: 50
 
 PicoDet:
   backbone: LCNet
@@ -29,19 +29,19 @@ num_classes: 5
 TrainDataset:
   !COCODataSet
     image_dir: train
-    anno_path: train/train.json
+    anno_path: train.json
     dataset_dir: /content/TextDivideLabel/
     data_fields: ['image', 'gt_bbox', 'gt_class', 'is_crowd']
 
 EvalDataset:
   !COCODataSet
     image_dir: valid
-    anno_path: valid/valid.json
+    anno_path: valid.json
     dataset_dir: /content/TextDivideLabel/
 
 TestDataset:
   !ImageFolder
-    anno_path: /content/TextDivideLabel/valid/valid.json
+    anno_path: /content/TextDivideLabel/valid.json
 
 
 worker_num: 8
@@ -59,7 +59,7 @@ TrainReader:
   - BatchRandomResize: {target_size: [[768, 576], [800, 608], [832, 640]], random_size: True, random_interp: True, keep_ratio: False}
   - NormalizeImage: {is_scale: true, mean: [0.485,0.456,0.406], std: [0.229, 0.224,0.225]}
   - Permute: {}
-  batch_size: 24
+  batch_size: 5
   shuffle: true
   drop_last: true
   collate_batch: false
@@ -72,7 +72,7 @@ EvalReader:
   - Permute: {}
   batch_transforms:
   - PadBatch: {pad_to_stride: 32}
-  batch_size: 8
+  batch_size: 4
   shuffle: false
 
 
